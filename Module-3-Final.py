@@ -6,21 +6,52 @@ contact_list = {}
 user_name = input("Hello user! May I get your first name? ").capitalize()
 
 def add_contact():
-    email_pattern = r"\b[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{3}\b"
+    email_pattern = r"\b[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}"
     ind_num = len(contact_list.keys()) + 1
     user_contact_name = input("Contact's Name: ").title()
     user_contact_number = input("Contact's Phone No.: ")
     user_email = input("Contact's E-mail Address: ")
 
-
     if len(user_contact_number) == 10 and user_contact_number.isnumeric() and re.findall(email_pattern, user_email):
         contact_list[f"Contact {ind_num}"] = {"Name" : user_contact_name, "Phone Number" : user_contact_number, "Email Address" : user_email}   
+        return f"{user_name}, {user_contact_name}'s contact information was saved under Contact {ind_num}."
+    elif len(user_contact_number) != 10:
+        return f"{user_name}, you entered an invalid phone number..."
+    elif user_email != re.findall(email_pattern, user_email):
+        return f"{user_name}, you entered an invalid email address..."       
 
-    return f"{user_name}, {user_contact_name}'s contact information was saved."
 def edit_contact():
-    pass
+    email_pattern = r"\b[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}"
+    contact_num = input("Please enter the contact you wish to edit: ").capitalize()
+
+    if contact_num in contact_list.keys():
+        found_contact = contact_list[contact_num]
+        print("1. Name\n2. Phone Number\n3. Email Address")
+        user_choice_1 = int(input("Please select a number for the data you with to revise: "))
+        if user_choice_1 == 1:
+            contact_name_edit = input("What is the new name of this contact?: ").capitalize()
+            found_contact["Name"] = contact_name_edit
+            return f"Revision saved"
+        elif user_choice_1 == 2:
+            contact_phone_edit = input("What is the new phone number of this contact?: ")
+            if len(contact_phone_edit) == 10:
+                found_contact["Phone Number"] = contact_phone_edit
+                return f"Revision saved"
+            else:
+                return f"{user_name}, you entered an invalid number"           
+        elif user_choice_1 == 3:
+            contact_email_edit = input("What is the new email address of this contact?: ")
+            if re.findall(email_pattern, contact_email_edit):
+                found_contact["Email Address"] = contact_email_edit
+                return f"Revision saved"
+            else:
+                return f"{user_name}, you entered an invalid email address"
+        else:
+            return f"{user_name}, you picked an invalid option..."
+        
 def delete_contact():
     pass
+
 def search_contact():
     pass
 
@@ -37,13 +68,16 @@ if user_start == "Y":
                 case 1:
                     print(add_contact())
                 case 2:
-                    pass
+                    print(edit_contact())
                 case 3:
                     pass
                 case 4:
                     pass
                 case 5:
-                    print(contact_list)
+                    if len(contact_list) == 0:
+                        print(f"{user_name}, your contact list is empty.")
+                    else:
+                        print(contact_list)
                 case 6:
                     pass
                 case 7:
