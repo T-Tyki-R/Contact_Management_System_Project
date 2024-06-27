@@ -7,37 +7,30 @@ user_name = input("Hello user! May I get your first name? ").capitalize()
 
 def add_contact():
     email_pattern = r"\b[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{3}\b"
-    ind_num = 0 + 1
-    contact_list["Contact"] = {}
+    ind_num = len(contact_list.keys()) + 1
     user_contact_name = input("Contact's Name: ").title()
     user_contact_number = input("Contact's Phone No.: ")
     user_email = input("Contact's E-mail Address: ")
+
 
     if len(user_contact_number) == 10 and user_contact_number.isnumeric() and re.findall(email_pattern, user_email):
         contact_list[f"Contact {ind_num}"] = {"Name" : user_contact_name, "Phone Number" : user_contact_number, "Email Address" : user_email}   
 
     return f"{user_name}, {user_contact_name}'s contact information was saved."
-
 def edit_contact():
     pass
 def delete_contact():
-    try:
-        pass
-    except ValueError:
-        pass
+    pass
 def search_contact():
     pass
-def display_contact():
-    pass
+
 def export_contact():
     pass
-
-
 
 user_start = input(f"It's nice to meet you {user_name}. Do you wish to use the Contact Management System? Y/N: ").capitalize()
 if user_start == "Y":
     while True:
-        print("\nWelcome to the Contact Management System!\n\tMenu\n\t____\n1. Add Contact\n2. Edit Existing Contact\n3. Delete Contact\n4. Search For a Contact\n5. Display Contacts\n6. Export Contacts\n8. Exit")
+        print("\nWelcome to the Contact Management System!\n\tMenu\n\t____\n1. Add Contact\n2. Edit Existing Contact\n3. Delete Contact\n4. Search For a Contact\n5. Display Contacts\n6. Export Contacts\n7. Exit")
         try:
             user_choice = int(input("Please enter a number that corresponse with your inquiry: "))
             match user_choice:
@@ -50,7 +43,7 @@ if user_start == "Y":
                 case 4:
                     pass
                 case 5:
-                    pass
+                    print(contact_list)
                 case 6:
                     pass
                 case 7:
