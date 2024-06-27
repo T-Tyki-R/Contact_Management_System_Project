@@ -50,7 +50,10 @@ def edit_contact():
             return f"{user_name}, you picked an invalid option..."
         
 def delete_contact():
-    pass
+    contact_num = input("Please enter the contact you wish to remove: ").capitalize()
+    if contact_num in contact_list.keys():
+        contact_list.pop(contact_num)
+        return f"{user_name}, {contact_num} was removed successfully"
 
 def search_contact():
     pass
@@ -70,7 +73,7 @@ if user_start == "Y":
                 case 2:
                     print(edit_contact())
                 case 3:
-                    pass
+                    print(delete_contact())
                 case 4:
                     pass
                 case 5:
