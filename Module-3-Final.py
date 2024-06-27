@@ -54,13 +54,26 @@ def delete_contact():
     if contact_num in contact_list.keys():
         contact_list.pop(contact_num)
         return f"{user_name}, {contact_num} was removed successfully"
+    else:
+        return f"{user_start}, you entered an invalid contact number"
 
 def search_contact():
-    pass
+    contact_num = input("Please enter the contact you wish to search up?: ").capitalize()
 
+    for i, x in contact_list.items():
+        if contact_num == i:
+            print(f"{i}\n")
+            for y in x:
+                print(f"{y}: {x[y]}\n")
+    
 def export_contact():
-    pass
-
+    user_export = input(f"{user_name}, type the name of your new text file: ").capitalize()
+    with open(f"{user_export}.txt", 'w') as file:
+        for i, x in contact_list.items():
+            file.write(f"{i}\n")
+            for y in x:
+                file.write(f"{y}: {x[y]}\n")
+        
 user_start = input(f"It's nice to meet you {user_name}. Do you wish to use the Contact Management System? Y/N: ").capitalize()
 if user_start == "Y":
     while True:
@@ -71,24 +84,42 @@ if user_start == "Y":
                 case 1:
                     print(add_contact())
                 case 2:
-                    print(edit_contact())
+                    if len(contact_list) == 0:
+                        print(f"{user_name}, your contact list is empty.")
+                    else:
+                        print(edit_contact())
                 case 3:
-                    print(delete_contact())
+                    if len(contact_list) == 0:
+                        print(f"{user_name}, your contact list is empty.")
+                    else:
+                        print(delete_contact())
                 case 4:
-                    pass
+                    if len(contact_list) == 0:
+                        print(f"{user_name}, your contact list is empty.")
+                    else:
+                        print(search_contact())
                 case 5:
                     if len(contact_list) == 0:
                         print(f"{user_name}, your contact list is empty.")
                     else:
-                        print(contact_list)
+                        for i, x in contact_list.items():
+                            print(f"{i}\n")
+                            for y in x:
+                                print(f"{y}: {x[y]}\n")
                 case 6:
-                    pass
+                    if len(contact_list) == 0:
+                        print(f"{user_name}, your contact list is empty.")
+                    else:
+                        print(export_contact())
                 case 7:
-                    print(f"Thank you for using the Contact Management System {user_name}! Goodbye")
+                    print(f"Thank you for using the Contact Management System {user_name}! Goodbye.")
+                    break
         except ValueError:
             print(f"{user_name}, please select a number between 1-7...")
 elif user_start == "N":
     print(f"Have a nice day {user_name}!")
 else:
     pass
+
+
 
